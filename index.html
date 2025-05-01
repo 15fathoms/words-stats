@@ -170,7 +170,6 @@
 
       <label for="wordInput">🔍</label>
       <input type="text" id="wordInput" placeholder="Enter a word" />
-      <button id="checkBtn">Check</button>
       <p id="resultMsg"></p>
     </div>
   </div>
@@ -394,7 +393,6 @@
     await loadData();
 
     const input = document.getElementById('wordInput');
-    const button = document.getElementById('checkBtn');
     const resultMsg = document.getElementById('resultMsg');
 
     input.addEventListener('keydown', (e) => {
