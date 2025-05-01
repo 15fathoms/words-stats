@@ -25,14 +25,20 @@
       gap: 2rem;
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       margin: 0 0 0.5rem;
       text-align: center;
       letter-spacing: 0.05em;
       min-height: 2.5rem;
     }
 
-    label, select, input, button, table, section {
+    label,
+    select,
+    input,
+    button,
+    table,
+    section {
       font-size: 1rem;
     }
 
@@ -46,7 +52,8 @@
       color-scheme: dark;
     }
 
-    input, button {
+    input,
+    button {
       background-color: var(--glass-bg);
       color: #fff;
       border: 1px solid var(--border);
@@ -120,7 +127,8 @@
       margin-top: 1rem;
     }
 
-    th, td {
+    th,
+    td {
       padding: 0.75rem 1rem;
       text-align: left;
       border-bottom: 1px solid var(--border);
@@ -165,18 +173,24 @@
       <button id="checkBtn">Check</button>
       <p id="resultMsg"></p>
     </div>
-</div>
-
-<section>
-  <h2>📥 Export Stats</h2>
-  <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-    <a id="linkJson" href="" download style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; background: var(--glass-bg); border: 1px solid var(--border); color: #fff; text-decoration: none;">📄 JSON</a>
-    <a id="linkCsv" href="" download style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; background: var(--glass-bg); border: 1px solid var(--border); color: #fff; text-decoration: none;">📑 CSV</a>
-    <a id="linkXlsx" href="" download style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; background: var(--glass-bg); border: 1px solid var(--border); color: #fff; text-decoration: none;">📊 XLSX</a>
   </div>
-</section>
 
-<section>
+  <section>
+    <h2>📥 Export Stats</h2>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+      <a id="linkJson" href="" download
+        style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; background: var(--glass-bg); border: 1px solid var(--border); color: #fff; text-decoration: none;">📄
+        JSON</a>
+      <a id="linkCsv" href="" download
+        style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; background: var(--glass-bg); border: 1px solid var(--border); color: #fff; text-decoration: none;">📑
+        CSV</a>
+      <a id="linkXlsx" href="" download
+        style="padding: 0.6rem 1.2rem; border-radius: 0.5rem; background: var(--glass-bg); border: 1px solid var(--border); color: #fff; text-decoration: none;">📊
+        XLSX</a>
+    </div>
+  </section>
+
+  <section>
     <h2 id="statsHeader">Stats</h2>
     <ul id="statsList">
       <li><span id="labelTotal"></span>: <strong id="valueTotal"></strong></li>
@@ -198,209 +212,207 @@
       </thead>
       <tbody id="lengthTable"></tbody>
     </table>
-      
+
   </section>
 
   <script type="module">
     const languageLabels = {
-  en: "English",
-  fr: "Français",
-  de: "Deutsch",
-  es: "Español"
-};
+      en: "English",
+      fr: "Français",
+      de: "Deutsch",
+      es: "Español"
+    };
 
-const translations = {
-  en: {
-    pageTitle: "Word Statistics",
-    statsHeader: "Statistics",
-    tableTitle: "Word Count by Length",
-    total: "Total words",
-    unique: "Unique words",
-    minLength: "Min length",
-    maxLength: "Max length",
-    average: "Average length",
-    median: "Median length",
-    stdDev: "Standard deviation",
-    mode: "Most common length(s)",
-    length: "Length",
-    count: "Count",
-    checkHeader: "Check a word",
-    exists: '✅ "{word}" exists in {lang}.',
-    notFound: '❌ "{word}" is not in the {lang} dictionary.'
-  },
-  fr: {
-    pageTitle: "Statistiques de mots",
-    statsHeader: "Statistiques",
-    tableTitle: "Nombre de mots par longueur",
-    total: "Nombre total de mots",
-    unique: "Mots uniques",
-    minLength: "Longueur minimale",
-    maxLength: "Longueur maximale",
-    average: "Longueur moyenne",
-    median: "Médiane",
-    stdDev: "Écart type",
-    mode: "Longueur(s) la/les plus fréquente(s)",
-    length: "Longueur",
-    count: "Nombre",
-    checkHeader: "Vérifier un mot",
-    exists: '✅ « {word} » existe dans {lang}.',
-    notFound: '❌ « {word} » n\'est pas présent dans le dictionnaire de {lang}.'
-  },
-  de: {
-    pageTitle: "Wortstatistiken",
-    statsHeader: "Statistiken",
-    tableTitle: "Wortanzahl nach Länge",
-    total: "Gesamtanzahl der Wörter",
-    unique: "Einzigartige Wörter",
-    minLength: "Minimale Länge",
-    maxLength: "Maximale Länge",
-    average: "Durchschnittliche Länge",
-    median: "Median der Länge",
-    stdDev: "Standardabweichung",
-    mode: "Häufigste Wortlänge(n)",
-    length: "Länge",
-    count: "Anzahl",
-    checkHeader: "Wort überprüfen",
-    exists: '✅ „{word}“ existiert im Wörterbuch {lang}.',
-    notFound: '❌ „{word}“ ist nicht im Wörterbuch {lang} enthalten.'
-  },
-  es: {
-    pageTitle: "Estadísticas de palabras",
-    statsHeader: "Estadísticas",
-    tableTitle: "Cantidad de palabras por longitud",
-    total: "Número total de palabras",
-    unique: "Palabras únicas",
-    minLength: "Longitud mínima",
-    maxLength: "Longitud máxima",
-    average: "Longitud media",
-    median: "Mediana",
-    stdDev: "Desviación estándar",
-    mode: "Longitud(es) más común(es)",
-    length: "Longitud",
-    count: "Cantidad",
-    checkHeader: "Verificar una palabra",
-    exists: '✅ «{word}» existe en {lang}.',
-    notFound: '❌ «{word}» no está en el diccionario de {lang}.'
-  }
-};
+    const translations = {
+      en: {
+        pageTitle: "Word Statistics",
+        statsHeader: "Statistics",
+        tableTitle: "Word Count by Length",
+        total: "Total words",
+        unique: "Unique words",
+        minLength: "Min length",
+        maxLength: "Max length",
+        average: "Average length",
+        median: "Median length",
+        stdDev: "Standard deviation",
+        mode: "Most common length(s)",
+        length: "Length",
+        count: "Count",
+        checkHeader: "Check a word",
+        exists: '✅ "{word}" exists in {lang}.',
+        notFound: '❌ "{word}" is not in the {lang} dictionary.'
+      },
+      fr: {
+        pageTitle: "Statistiques de mots",
+        statsHeader: "Statistiques",
+        tableTitle: "Nombre de mots par longueur",
+        total: "Nombre total de mots",
+        unique: "Mots uniques",
+        minLength: "Longueur minimale",
+        maxLength: "Longueur maximale",
+        average: "Longueur moyenne",
+        median: "Médiane",
+        stdDev: "Écart type",
+        mode: "Longueur(s) la/les plus fréquente(s)",
+        length: "Longueur",
+        count: "Nombre",
+        checkHeader: "Vérifier un mot",
+        exists: '✅ « {word} » existe dans {lang}.',
+        notFound: '❌ « {word} » n\'est pas présent dans le dictionnaire de {lang}.'
+      },
+      de: {
+        pageTitle: "Wortstatistiken",
+        statsHeader: "Statistiken",
+        tableTitle: "Wortanzahl nach Länge",
+        total: "Gesamtanzahl der Wörter",
+        unique: "Einzigartige Wörter",
+        minLength: "Minimale Länge",
+        maxLength: "Maximale Länge",
+        average: "Durchschnittliche Länge",
+        median: "Median der Länge",
+        stdDev: "Standardabweichung",
+        mode: "Häufigste Wortlänge(n)",
+        length: "Länge",
+        count: "Anzahl",
+        checkHeader: "Wort überprüfen",
+        exists: '✅ „{word}“ existiert im Wörterbuch {lang}.',
+        notFound: '❌ „{word}“ ist nicht im Wörterbuch {lang} enthalten.'
+      },
+      es: {
+        pageTitle: "Estadísticas de palabras",
+        statsHeader: "Estadísticas",
+        tableTitle: "Cantidad de palabras por longitud",
+        total: "Número total de palabras",
+        unique: "Palabras únicas",
+        minLength: "Longitud mínima",
+        maxLength: "Longitud máxima",
+        average: "Longitud media",
+        median: "Mediana",
+        stdDev: "Desviación estándar",
+        mode: "Longitud(es) más común(es)",
+        length: "Longitud",
+        count: "Cantidad",
+        checkHeader: "Verificar una palabra",
+        exists: '✅ «{word}» existe en {lang}.',
+        notFound: '❌ «{word}» no está en el diccionario de {lang}.'
+      }
+    };
 
-const params = new URLSearchParams(location.search);
-let currentLang = params.get('lang') || 'en';
-let currentDict = params.get('dict') || 'en';
-let currentWords = [];
-let allStats = {};
+    const params = new URLSearchParams(location.search);
+    let currentLang = params.get('lang') || 'en';
+    let currentDict = params.get('dict') || 'en';
+    let currentWords = [];
+    let allStats = {};
 
-const langSelect = document.getElementById('lang');
-const dictSelect = document.getElementById('dict');
+    const langSelect = document.getElementById('lang');
+    const dictSelect = document.getElementById('dict');
 
-const loadLangs = async () => {
-  const { availableLanguages } = await import('./langs.js');
-  langSelect.innerHTML = availableLanguages.map(({ code, name }) =>
-    `<option value="${code}" ${code === currentLang ? 'selected' : ''}>${name}</option>`
-  ).join('');
-  dictSelect.innerHTML = availableLanguages.map(({ code, name }) =>
-    `<option value="${code}" ${code === currentDict ? 'selected' : ''}>${name}</option>`
-  ).join('');
-};
+    const loadLangs = async () => {
+      const { availableLanguages } = await import('./langs.js');
+      langSelect.innerHTML = availableLanguages.map(({ code, name }) =>
+        `<option value="${code}" ${code === currentLang ? 'selected' : ''}>${name}</option>`
+      ).join('');
+      dictSelect.innerHTML = availableLanguages.map(({ code, name }) =>
+        `<option value="${code}" ${code === currentDict ? 'selected' : ''}>${name}</option>`
+      ).join('');
+    };
 
-const updateUIText = (t) => {
-  document.getElementById('pageTitle').textContent = t.pageTitle;
-  document.getElementById('statsHeader').textContent = t.statsHeader;
-  document.getElementById('tableTitle').textContent = t.tableTitle;
-  document.getElementById('checkHeader').textContent = t.checkHeader;
-  document.getElementById('lengthHeader').textContent = t.length;
-  document.getElementById('countHeader').textContent = t.count;
+    const updateUIText = (t) => {
+      document.getElementById('pageTitle').textContent = t.pageTitle;
+      document.getElementById('statsHeader').textContent = t.statsHeader;
+      document.getElementById('tableTitle').textContent = t.tableTitle;
+      document.getElementById('checkHeader').textContent = t.checkHeader;
+      document.getElementById('lengthHeader').textContent = t.length;
+      document.getElementById('countHeader').textContent = t.count;
 
-  document.getElementById('labelTotal').textContent = t.total;
-  document.getElementById('labelUnique').textContent = t.unique;
-  document.getElementById('labelMin').textContent = t.minLength;
-  document.getElementById('labelMax').textContent = t.maxLength;
-  document.getElementById('labelAverage').textContent = t.average;
-  document.getElementById('labelMedian').textContent = t.median;
-  document.getElementById('labelStdDev').textContent = t.stdDev;
-  document.getElementById('labelMode').textContent = t.mode;
-};
+      document.getElementById('labelTotal').textContent = t.total;
+      document.getElementById('labelUnique').textContent = t.unique;
+      document.getElementById('labelMin').textContent = t.minLength;
+      document.getElementById('labelMax').textContent = t.maxLength;
+      document.getElementById('labelAverage').textContent = t.average;
+      document.getElementById('labelMedian').textContent = t.median;
+      document.getElementById('labelStdDev').textContent = t.stdDev;
+      document.getElementById('labelMode').textContent = t.mode;
+    };
 
-const updateStatsValues = (stats) => {
-  document.getElementById('valueTotal').textContent = stats.total;
-  document.getElementById('valueUnique').textContent = stats.unique;
-  document.getElementById('valueMin').textContent = stats.minLength;
-  document.getElementById('valueMax').textContent = stats.maxLength;
-  document.getElementById('valueAverage').textContent = stats.averageLength;
-  document.getElementById('valueMedian').textContent = stats.medianLength;
-  document.getElementById('valueStdDev').textContent = stats.stdDevLength;
-  document.getElementById('valueMode').textContent = stats.mostCommonLengths.join(', ');
+    const updateStatsValues = (stats) => {
+      document.getElementById('valueTotal').textContent = stats.total;
+      document.getElementById('valueUnique').textContent = stats.unique;
+      document.getElementById('valueMin').textContent = stats.minLength;
+      document.getElementById('valueMax').textContent = stats.maxLength;
+      document.getElementById('valueAverage').textContent = stats.averageLength;
+      document.getElementById('valueMedian').textContent = stats.medianLength;
+      document.getElementById('valueStdDev').textContent = stats.stdDevLength;
+      document.getElementById('valueMode').textContent = stats.mostCommonLengths.join(', ');
 
-  const lengthTable = document.getElementById('lengthTable');
-  lengthTable.innerHTML = '';
-  Object.entries(stats.byLength).sort((a, b) => a[0] - b[0]).forEach(([length, count]) => {
-    lengthTable.innerHTML += `<tr><td>${length}</td><td>${count}</td></tr>`;
-  });
-};
+      const lengthTable = document.getElementById('lengthTable');
+      lengthTable.innerHTML = '';
+      Object.entries(stats.byLength).sort((a, b) => a[0] - b[0]).forEach(([length, count]) => {
+        lengthTable.innerHTML += `<tr><td>${length}</td><td>${count}</td></tr>`;
+      });
+    };
 
-const loadData = async () => {
-  const setDownloadLinks = () => {
-    document.getElementById('linkJson').href = `./${currentDict}.json`;
-    document.getElementById('linkCsv').href = `./${currentDict}.csv`;
-    document.getElementById('linkXlsx').href = `./${currentDict}.xlsx`;
-  };
-  allStats = await (await fetch('./all.json')).json();
-  const { words } = await import(`./${currentDict}.js`);
-  currentWords = words.map(w => w.toLowerCase());
+    const loadData = async () => {
+      const setDownloadLinks = () => {
+        document.getElementById('linkJson').href = `./${currentDict}.json`;
+        document.getElementById('linkCsv').href = `./${currentDict}.csv`;
+        document.getElementById('linkXlsx').href = `./${currentDict}.xlsx`;
+      };
+      allStats = await (await fetch('./all.json')).json();
+      const { words } = await import(`./${currentDict}.js`);
+      currentWords = words.map(w => w.toLowerCase());
 
-  const stats = allStats[currentDict];
-  updateStatsValues(stats);
-  setDownloadLinks();
-};
+      const stats = allStats[currentDict];
+      updateStatsValues(stats);
+      setDownloadLinks();
+    };
 
-langSelect.addEventListener('change', () => {
-  currentLang = langSelect.value;
-  const t = translations[currentLang] || translations.en;
-  updateUIText(t);
+    langSelect.addEventListener('change', () => {
+      currentLang = langSelect.value;
+      const t = translations[currentLang] || translations.en;
+      updateUIText(t);
 
-  const value = input.value.trim().toLowerCase();
-  if (value) {
-    const found = currentWords.includes(value);
-    resultMsg.style.color = found ? 'limegreen' : 'tomato';
-    const msg = found ? t.exists : t.notFound;
-    resultMsg.textContent = msg
-      .replace('{word}', value)
-      .replace('{lang}', languageLabels[currentDict]);
-  }
-});
+      const value = input.value.trim().toLowerCase();
+      if (value) {
+        const found = currentWords.includes(value);
+        resultMsg.style.color = found ? 'limegreen' : 'tomato';
+        const msg = found ? t.exists : t.notFound;
+        resultMsg.textContent = msg
+          .replace('{word}', value)
+          .replace('{lang}', languageLabels[currentDict]);
+      }
+    });
 
-dictSelect.addEventListener('change', () => {
-  currentDict = dictSelect.value;
-  loadData();
-});
+    dictSelect.addEventListener('change', () => {
+      currentDict = dictSelect.value;
+      loadData();
+    });
 
-await loadLangs();
-const t = translations[currentLang] || translations.en;
-updateUIText(t);
-await loadData();
+    await loadLangs();
+    const t = translations[currentLang] || translations.en;
+    updateUIText(t);
+    await loadData();
 
-const input = document.getElementById('wordInput');
-const button = document.getElementById('checkBtn');
-const resultMsg = document.getElementById('resultMsg');
+    const input = document.getElementById('wordInput');
+    const button = document.getElementById('checkBtn');
+    const resultMsg = document.getElementById('resultMsg');
 
-button.addEventListener('click', () => {
-  const value = input.value.trim().toLowerCase();
-  if (!value) {
-    resultMsg.textContent = '';
-    return;
-  }
-  const found = currentWords.includes(value);
-  resultMsg.style.color = found ? 'limegreen' : 'tomato';
-  const currentT = translations[currentLang] || translations.en;
-  const msg = found ? currentT.exists : currentT.notFound;
-  resultMsg.textContent = msg
-    .replace('{word}', value)
-    .replace('{lang}', languageLabels[currentDict]);
-});
+    input.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const value = input.value.trim().toLowerCase();
+      if (!value) {
+        resultMsg.textContent = '';
+        return;
+      }
+      const found = currentWords.includes(value);
+      resultMsg.style.color = found ? 'limegreen' : 'tomato';
+      const currentT = translations[currentLang] || translations.en;
+      const msg = found ? currentT.exists : currentT.notFound;
+      resultMsg.textContent = msg
+        .replace('{word}', value)
+        .replace('{lang}', languageLabels[currentDict]);
+    });
 
-input.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') button.click();
-});
   </script>
 </body>
 
