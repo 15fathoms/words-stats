@@ -216,10 +216,30 @@
 
   <script type="module">
     const languageLabels = {
-      en: "English",
-      fr: "Français",
-      de: "Deutsch",
-      es: "Español"
+      en: {
+        en: "English",
+        fr: "Anglais",
+        de: "Englisch",
+        es: "Inglés"
+      },
+      fr: {
+        en: "French",
+        fr: "Français",
+        de: "Französisch",
+        es: "Francés"
+      },
+      de: {
+        en: "German",
+        fr: "Allemand",
+        de: "Deutsch",
+        es: "Alemán"
+      },
+      es: {
+        en: "Spanish",
+        fr: "Espagnol",
+        de: "Spanisch",
+        es: "Español"
+      }
     };
 
     const translations = {
@@ -238,7 +258,7 @@
         length: "Length",
         count: "Count",
         checkHeader: "Check a word",
-        exists: '✅ "{word}" exists in {lang}.',
+        exists: '✅ "{word}" exists in the {lang} dictionnary.',
         notFound: '❌ "{word}" is not in the {lang} dictionary.'
       },
       fr: {
@@ -256,8 +276,8 @@
         length: "Longueur",
         count: "Nombre",
         checkHeader: "Vérifier un mot",
-        exists: '✅ « {word} » existe dans {lang}.',
-        notFound: '❌ « {word} » n\'est pas présent dans le dictionnaire de {lang}.'
+        exists: '✅ « {word} » existe dans le dictionnaire {lang}.',
+        notFound: '❌ « {word} » n\'est pas présent dans le dictionnaire {lang}.'
       },
       de: {
         pageTitle: "Wortstatistiken",
@@ -274,8 +294,8 @@
         length: "Länge",
         count: "Anzahl",
         checkHeader: "Wort überprüfen",
-        exists: '✅ „{word}“ existiert im Wörterbuch {lang}.',
-        notFound: '❌ „{word}“ ist nicht im Wörterbuch {lang} enthalten.'
+        exists: '✅ „{word}“ ist im {lang}-Wörterbuch enthalten.',
+        notFound: '❌ „{word}“ ist nicht im {lang}-Wörterbuch enthalten.'
       },
       es: {
         pageTitle: "Estadísticas de palabras",
@@ -292,8 +312,8 @@
         length: "Longitud",
         count: "Cantidad",
         checkHeader: "Verificar una palabra",
-        exists: '✅ «{word}» existe en {lang}.',
-        notFound: '❌ «{word}» no está en el diccionario de {lang}.'
+        exists: '✅ «{word}» existe en el {lang} diccionario.',
+        notFound: '❌ «{word}» no está en el diccionario {lang}.'
       }
     };
 
@@ -353,9 +373,9 @@
 
     const loadData = async () => {
       const setDownloadLinks = () => {
-        document.getElementById('linkJson').href = `./${currentDict}.json`;
-        document.getElementById('linkCsv').href = `./${currentDict}.csv`;
-        document.getElementById('linkXlsx').href = `./${currentDict}.xlsx`;
+        document.getElementById('linkJson').href = `./output/${currentDict}.stats.json`;
+        document.getElementById('linkCsv').href = `./output/${currentDict}.stats.csv`;
+        document.getElementById('linkXlsx').href = `./output/${currentDict}.stats.xlsx`;
       };
       allStats = await (await fetch('./all.json')).json();
       const { words } = await import(`./${currentDict}.js`);
@@ -378,7 +398,7 @@
         const msg = found ? t.exists : t.notFound;
         resultMsg.textContent = msg
           .replace('{word}', value)
-          .replace('{lang}', languageLabels[currentDict]);
+          .replace('{lang}', languageLabels[currentDict][currentLang]);
       }
     });
 
@@ -408,9 +428,8 @@
       const msg = found ? currentT.exists : currentT.notFound;
       resultMsg.textContent = msg
         .replace('{word}', value)
-        .replace('{lang}', languageLabels[currentDict]);
+        .replace('{lang}', languageLabels[currentDict][currentLang]);
     });
-
   </script>
 </body>
 
