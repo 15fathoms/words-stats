@@ -373,9 +373,9 @@
 
     const loadData = async () => {
       const setDownloadLinks = () => {
-        document.getElementById('linkJson').href = `./output/${currentDict}.json`;
-        document.getElementById('linkCsv').href = `./output/${currentDict}.csv`;
-        document.getElementById('linkXlsx').href = `./output/${currentDict}.xlsx`;
+        document.getElementById('linkJson').href = `./${currentDict}.json`;
+        document.getElementById('linkCsv').href = `./${currentDict}.csv`;
+        document.getElementById('linkXlsx').href = `./${currentDict}.xlsx`;
       };
       allStats = await (await fetch('./all.json')).json();
       const { words } = await import(`./${currentDict}.js`);
