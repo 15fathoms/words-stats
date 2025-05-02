@@ -418,6 +418,7 @@
     input.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter') return;
       const value = input.value.trim().toLowerCase();
+      input.value = '';
       if (!value) {
         resultMsg.textContent = '';
         return;
