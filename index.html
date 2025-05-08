@@ -317,9 +317,17 @@
       }
     };
 
-    const params = new URLSearchParams(location.search);
-    let currentLang = params.get('lang') || 'en';
-    let currentDict = params.get('dict') || 'en';
+    // read localStorage for lang and dict
+
+    if(!localStorage.getItem ('lang')) {
+      localStorage.setItem ('lang', 'en');
+    }
+    if(!localStorage.getItem ('dict')) {
+      localStorage.setItem ('dict', 'en');
+    }
+
+    let currentLang = localStorage.getItem ('lang') || 'en';
+    let currentDict = localStorage.getItem ('dict') || 'en';
     let currentWords = [];
     let allStats = {};
 
@@ -376,6 +384,9 @@
         document.getElementById('linkJson').href = `./${currentDict}.json`;
         document.getElementById('linkCsv').href = `./${currentDict}.csv`;
         document.getElementById('linkXlsx').href = `./${currentDict}.xlsx`;
+        document.getElementById('linkJson').textContent = `📄 JSON [${[...currentDict][0].toUpperCase() + [...currentDict][1].toUpperCase()}]`;
+        document.getElementById('linkCsv').textContent = `📑 CSV [${[...currentDict][0].toUpperCase() + [...currentDict][1].toUpperCase()}]`;
+        document.getElementById('linkXlsx').textContent = `📊 XLSX [${[...currentDict][0].toUpperCase() + [...currentDict][1].toUpperCase()}]`;
       };
       allStats = await (await fetch('./all.json')).json();
       const { words } = await import(`./${currentDict}.js`);
@@ -387,6 +398,7 @@
     };
 
     langSelect.addEventListener('change', () => {
+      localStorage.setItem ('lang', langSelect.value);
       currentLang = langSelect.value;
       const t = translations[currentLang] || translations.en;
       updateUIText(t);
@@ -403,6 +415,7 @@
     });
 
     dictSelect.addEventListener('change', () => {
+      localStorage.setItem ('dict', dictSelect.value);
       currentDict = dictSelect.value;
       loadData();
     });
